@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics Livraisons – Visualisation créneaux</title>
+  <link rel="stylesheet" href="css/deliveries.css" />
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- TOP BAR -->
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <h1 class="app-title">Analytics Livraisons</h1>
+        <p class="app-subtitle">Nombre de livraisons par tranche de 30 minutes, avec comparaison de journées et profils moyens</p>
+      </div>
+      <div class="top-bar-right">
+        <a href="../" class="btn btn-ghost">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+          Retour
+        </a>
+      </div>
+    </header>
+
+    <!-- STATUS BAR -->
+    <div id="status-bar" class="status-bar">Chargement des données...</div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="main-container">
+      
+      <!-- LEFT SIDEBAR: FILTRES COMPACTS -->
+      <aside class="sidebar">
+        
+        <!-- MODE -->
+        <section class="sidebar-card">
+          <div class="card-header-compact">
+            <svg class="card-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+            <h2 class="card-title-sm">Mode</h2>
+          </div>
+          <div class="card-content-compact">
+            <select id="mode-select" class="select-input-compact">
+              <option value="single">Journée unique</option>
+              <option value="compare">Comparer 2 journées</option>
+              <option value="weekday">Profil jour de semaine</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- DATES -->
+        <section class="sidebar-card" data-group="date-a" data-hidden="false">
+          <div class="card-header-compact">
+            <svg class="card-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <h2 class="card-title-sm">Date A</h2>
+          </div>
+          <div class="card-content-compact">
+            <select id="date-a-select" class="select-input-compact"></select>
+          </div>
+        </section>
+
+        <section class="sidebar-card" data-group="date-b" data-hidden="true">
+          <div class="card-header-compact">
+            <svg class="card-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <h2 class="card-title-sm">Date B</h2>
+          </div>
+          <div class="card-content-compact">
+            <select id="date-b-select" class="select-input-compact"></select>
+          </div>
+        </section>
+
+        <!-- WEEKDAY -->
+        <section class="sidebar-card" data-group="weekday" data-hidden="true">
+          <div class="card-header-compact">
+            <svg class="card-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              ircle cx="12" cy="12"2" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <h2 class="card-title-sm">Jour</h2>
+          </div>
+          <div class="card-content-compact">
+            <select id="weekday-select" class="select-input-compact">
+              <option value="">-- Choisir --</option>
+              <option value="0">Dimanche</option>
+              <option value="1">Lundi</option>
+              <option value="2">Mardi</option>
+              <option value="3">Mercredi</option>
+              <option value="4">Jeudi</option>
+              <option value="5">Vendredi</option>
+              <option value="6">Samedi</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- MÉTRIQUE -->
+        <section class="sidebar-card">
+          <div class="card-header-compact">
+            <svg class="card-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="20" x2="12" y2="10"/>
+              <line x1="18" y1="20" x2="18" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="16"/>
+            </svg>
+            <h2 class="card-title-sm">Métrique</h2>
+          </div>
+          <div class="card-content-compact">
+            <select id="metric-select" class="select-input-compact">
+              <option value="drive">Drive uniquement</option>
+              <option value="total">Total livraisons (drive + collab)</option>
+              <option value="collab">Collab uniquement</option>
+            </select>
+          </div>
+        </section>
+
+
+        <!-- OPTIONS -->
+        <section class="sidebar-card" data-group="options" data-hidden="false">
+          <div class="card-header-compact">
+            <svg class="card-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              ircle cx="12" cy="12"2" r="3"/>
+              <path d="M12 1v6m0 6v6M1 12h6m6 0h6"/>
+            </svg>
+            <h2 class="card-title-sm">Options</h2>
+          </div>
+          <div class="card-content-compact">
+            <label class="checkbox-label">
+              <input type="checkbox" id="show-weekday-ref" class="checkbox-input" />
+              <span>Profil jour-type</span>
+            </label>
+          </div>
+        </section>
+
+      </aside>
+
+      <!-- RIGHT AREA: CHART + STATS -->
+      <main class="chart-area">
+        
+        <!-- CHART CONTAINER -->
+        <div class="chart-wrapper">
+          <div class="chart-header">
+            <h2 class="chart-title">Visualisation des créneaux</h2>
+          </div>
+          <div class="chart-viewport">
+            <div id="chart" class="bar-groups-container"></div>
+          </div>
+        </div>
+
+        <!-- STATS GRID (en bas) -->
+        <div class="stats-grid">
+          <div id="stats-content" class="stats-cards"></div>
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+  <script src="js/deliveries.js"></script>
+</body>
+</html>

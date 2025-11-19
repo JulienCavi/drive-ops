@@ -1,0 +1,67 @@
+{
+  "zones": [
+    { "id": "mezza", "label": "Mezzanine", "plan": "plans/mezza.json" }
+  ],
+  "datasets": [
+    {
+      "zone": "mezza",
+      "type": "mono",
+      "date": "2025-11-01",
+      "file": "data/mezza_mono_20251101.csv"
+    },
+    {
+      "zone": "mezza",
+      "type": "multi",
+      "date": "2025-11-01",
+      "file": "data/mezza_multi_20251101.csv"
+    },
+    {
+      "zone": "mezza",
+      "type": "mono",
+      "date": "2025-11-02",
+      "file": "data/mezza_mono_20251102.csv"
+    },
+    {
+      "zone": "mezza",
+      "type": "multi",
+      "date": "2025-11-02",
+      "file": "data/mezza_multi_20251102.csv"
+    },
+    {
+      "zone": "mezza",
+      "type": "mono",
+      "date": "2025-11-03",
+      "file": "data/mezza_mono_20251103.csv"
+    },
+    {
+      "zone": "mezza",
+      "type": "multi",
+      "date": "2025-11-03",
+      "file": "data/mezza_multi_20251103.csv"
+    },
+    {
+      "zone": "mezza",
+      "type": "mono",
+      "date": "2025-11-04",
+      "file": "data/mezza_mono_20251104.csv"
+    },
+    {
+      "zone": "mezza",
+      "type": "multi",
+      "date": "2025-11-04",
+      "file": "data/mezza_multi_20251104.csv"
+    },
+    {
+      "zone": "mezza",
+      "type": "mono",
+      "date": "2025-11-05",
+      "file": "data/mezza_mono_20251105.csv"
+    },
+    {
+      "zone": "mezza",
+      "type": "multi",
+      "date": "2025-11-05",
+      "file": "data/mezza_multi_20251105.csv"
+    }
+  ]
+}

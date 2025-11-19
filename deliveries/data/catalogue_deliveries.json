@@ -1,0 +1,69 @@
+{
+  "datasets": [
+    {
+      "date": "2025-11-01",
+      "file": "data/deliveries_2025-11-01.csv",
+      "label": "Samedi 01/11/2025"
+    },
+    {
+      "date": "2025-11-03",
+      "file": "data/deliveries_2025-11-03.csv",
+      "label": "Lundi 03/11/2025"
+    },
+    {
+      "date": "2025-11-05",
+      "file": "data/deliveries_2025-11-05.csv",
+      "label": "Mercredi 05/11/2025"
+    },
+    {
+      "date": "2025-11-06",
+      "file": "data/deliveries_2025-11-06.csv",
+      "label": "Jeudi 06/11/2025"
+    },
+    {
+      "date": "2025-11-07",
+      "file": "data/deliveries_2025-11-07.csv",
+      "label": "Vendredi 07/11/2025"
+    },
+    {
+      "date": "2025-11-08",
+      "file": "data/deliveries_2025-11-08.csv",
+      "label": "Samedi 08/11/2025"
+    },
+    {
+      "date": "2025-11-09",
+      "file": "data/deliveries_2025-11-09.csv",
+      "label": "Dimanche 09/11/2025"
+    },
+    {
+      "date": "2025-11-11",
+      "file": "data/deliveries_2025-11-11.csv",
+      "label": "Mardi 11/11/2025"
+    },
+    {
+      "date": "2025-11-12",
+      "file": "data/deliveries_2025-11-12.csv",
+      "label": "Mercredi 12/11/2025"
+    },
+    {
+      "date": "2025-11-13",
+      "file": "data/deliveries_2025-11-13.csv",
+      "label": "Jeudi 13/11/2025"
+    },
+    {
+      "date": "2025-11-14",
+      "file": "data/deliveries_2025-11-14.csv",
+      "label": "Vendredi 14/11/2025"
+    },
+    {
+      "date": "2025-11-15",
+      "file": "data/deliveries_2025-11-15.csv",
+      "label": "Samedi 15/11/2025"
+    },
+    {
+      "date": "2025-11-16",
+      "file": "data/deliveries_2025-11-16.csv",
+      "label": "Dimanche 16/11/2025"
+    }
+  ]
+}

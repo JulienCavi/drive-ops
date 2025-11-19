@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outils Drive – Visualisation & Gestion</title>
+  <link rel="stylesheet" href="css/global.css" />
+</head>
+<body>
+  <div class="app-wrapper">
+    
+    <!-- TOP BAR -->
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1>Outils Drive</h1>
+            <p class="brand-tagline">Visualisation & Gestion</p>
+          </div>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <span class="env-badge">Production</span>
+      </div>
+    </header>
+
+    <!-- INTRO SECTION -->
+    <section class="intro-section">
+      <p class="intro-text">
+        Accéder rapidement aux outils de visualisation et de planification pour optimiser les opérations drive.
+      </p>
+    </section>
+
+    <!-- MODULES -->
+    <main class="modules-container">
+      <div class="section-header">
+        <h2 class="section-title">Modules disponibles</h2>
+        <p class="section-subtitle">Sélectionner un outil pour commencer</p>
+      </div>
+
+      <div class="modules-grid">
+        
+        <!-- HEATMAP PICKING -->
+        <article class="module-card module-highlight">
+          <div class="card-badge">
+            <span class="badge-dot"></span>
+            En production
+          </div>
+          <div class="card-icon card-icon-primary">  <!-- ← AJOUT classe card-icon-primary -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Heatmaps picking</h3>
+          <p class="card-description">
+            Vue aérienne par zone, type de picking & période. Idéal slotting pour repérer les meubles sur-sollicités et rééquilibrer les implantations.
+          </p>
+          <ul class="card-features">
+            <li>Filtre par zone, type mono/multi (LAD à venir), dates</li>
+            <li>Intensité relative et stats par meuble</li>
+            <li>Données : Mezzanine (mono/multi), autres zones à venir</li>
+            <li>Données : à partir du 01/11/2025 jusqu'au 05/11/2025 (échantillon en cours de remplissage)</li>
+          </ul>
+          <div class="card-actions">
+            <a href="heatmaps/" class="btn btn-primary">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+              Ouvrir la heatmap
+            </a>
+          </div>
+        </article>
+
+        <!-- DELIVERY ANALYTICS -->
+        <article class="module-card module-highlight">
+          <div class="card-badge">
+            <span class="badge-dot"></span>
+            En production
+          </div>
+          <div class="card-icon card-icon-primary">  <!-- ← AJOUT classe card-icon-primary -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="20" x2="12" y2="10"/>
+              <line x1="18" y1="20" x2="18" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="16"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Analytics Livraisons</h3>
+          <p class="card-description">
+            Nombre de livraisons par tranche de 30 minutes, avec comparaison de journées et profils moyens par jour de semaine.
+          </p>
+          <ul class="card-features">
+            <li>Médiane temporelle et pics de charge</li>
+            <li>Modes single, compare et weekday</li>
+            <li>Métriques Total, Drive (Collab à venir dès que Manhattan aura bien voulu coopérer)</li>
+            <li>Données : à partir du 01/11/2025 (échantillon en cours de remplissage)</li>
+          </ul>
+          <div class="card-actions">
+            <a href="deliveries/" class="btn btn-primary">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+              Ouvrir l'analytics
+            </a>
+          </div>
+        </article>
+
+        <!-- PLAN DESIGNER -->
+        <article class="module-card">
+          <div class="card-badge card-badge-secondary">
+            <span class="badge-dot badge-dot-secondary"></span>
+            Interne
+          </div>
+          <div class="card-icon card-icon-secondary">  <!-- ← AJOUT classe card-icon-secondary -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M9 21V9"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Plan Designer</h3>
+          <p class="card-description">
+            Éditeur interactif pour créer et ajuster les layouts de zones. Mode rayon guidé pour placement rapide.
+          </p>
+          <ul class="card-features">
+            <li>Placement visuel des meubles sur grille</li>
+            <li>Génération automatique du JSON</li>
+            <li>Mode incrémentation automatique</li>
+            <li>Import/export des plans existants</li>
+          </ul>
+          <div class="card-actions">
+            <a href="plan_designer.html" class="btn btn-secondary">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              Accéder au designer
+            </a>
+          </div>
+        </article>
+
+        <!-- MULTI-PICKING 
+        <article class="module-card module-disabled">
+          <div class="card-badge card-badge-warning">
+            <span class="badge-dot badge-dot-warning"></span>
+            Bientôt disponible
+          </div>
+          <div class="card-icon card-icon-disabled">  
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Heatmap multi-picking</h3>
+          <p class="card-description">
+            Analyse comparative des modes de picking avec filtres avancés et exports personnalisables.
+          </p>
+          <ul class="card-features">
+            <li>Comparaison mono vs multi vs LAD</li>
+            <li>Métriques de performance par zone</li>
+            <li>Export CSV et rapports PDF</li>
+          </ul>
+          <div class="card-actions">
+            <button class="btn btn-secondary" disabled>
+              En développement
+            </button>
+          </div>
+        </article> -->
+
+        
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <span>© 2025 Outils drive</span>
+      <span class="footer-sep">•</span>
+      <span>Version 1.3.0</span>
+    </footer>
+
+  </div>
+</body>
+</html>
