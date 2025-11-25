@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan Designer – Architecte</title>
+  
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- STYLES -->
+  <link rel="stylesheet" href="../css/global.css" /> <!-- Si à la racine -->
+  <!-- OU si dans un sous dossier : <link rel="stylesheet" href="../css/global.css" /> -->
+  <link rel="stylesheet" href="designer.css" />
+</head>
+<body>
+  
+  <div class="tactical-view">
+    
+    <!-- HEADER FLOTTANT -->
+    <header class="tactical-header">
+      <div class="header-left">
+        <a href="/" class="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          <span class="back-label">HUB</span>
+        </a>
+        <div class="module-title">
+          <span class="module-code">03 // ARCHITECTE</span>
+          <h1>Plan Designer</h1>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="live-status">
+          <span class="status-dot pulse"></span>
+          <span>MODE ÉDITION</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- PANNEAU GAUCHE (OUTILS) -->
+    <aside class="control-panel left-panel glass-panel">
+      
+      <!-- DIMENSIONS -->
+      <div class="panel-section">
+        <label class="panel-label">DIMENSIONS GRILLE</label>
+        <div class="dims-row">
+          <div class="input-wrapper">
+            <label>LIGNES</label>
+            <input type="number" id="rows-input" class="tactical-input" value="15" min="5" max="100">
+          </div>
+          <div class="input-wrapper">
+            <label>COLS</label>
+            <input type="number" id="cols-input" class="tactical-input" value="25" min="5" max="100">
+          </div>
+        </div>
+        <div class="actions-row">
+          <button class="action-btn primary" onclick="rebuildGrid()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/></svg>
+            Appliquer
+          </button>
+          <button class="action-btn danger" onclick="clearAll()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+            Vider
+          </button>
+        </div>
+      </div>
+
+      <!-- RAYON GUIDÉ -->
+      <div class="panel-section">
+        <div class="section-header">
+          <label class="panel-label">AUTO-INCRÉMENTATION</label>
+          <div class="status-badge" id="rayon-badge">OFF</div>
+        </div>
+        
+        <div class="input-wrapper">
+          <label>DÉBUT SÉQUENCE</label>
+          <input type="text" id="rayon-start" class="tactical-input" placeholder="Ex: MT00" maxlength="10">
+        </div>
+
+        <button id="btn-start-rayon" class="action-btn highlight" onclick="startRayonMode()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Démarrer Séquence
+        </button>
+
+        <div class="rayon-controls hidden" id="rayon-controls">
+          <div class="current-target">
+            <span>CIBLE :</span>
+            <strong id="target-display">MT00</strong>
+          </div>
+          <div class="actions-row">
+            <button class="action-btn warning" onclick="skipCurrent()">Sauter</button>
+            <button class="action-btn" onclick="stopRayonMode()">Stop</button>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- VIEWPORT CENTRAL -->
+    <main class="map-viewport">
+      <div class="map-stage">
+        <table id="plan-table" class="designer-grid"></table>
+      </div>
+    </main>
+
+    <!-- PANNEAU DROIT (JSON) -->
+    <aside class="control-panel right-panel glass-panel">
+      
+      <div class="panel-section">
+        <label class="panel-label">SOURCE JSON</label>
+        <textarea id="json-output" class="code-editor" readonly></textarea>
+      </div>
+
+      <div class="panel-section">
+        <label class="panel-label">ACTIONS FICHIER</label>
+        <div class="actions-stack">
+          <button class="action-btn" onclick="copyJSON()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copier dans le presse-papier
+          </button>
+          
+          <button class="action-btn" onclick="downloadJSON()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"/></svg>
+            Télécharger .json
+          </button>
+
+          <div class="separator"></div>
+
+          <input type="file" id="json-file-input" accept=".json" style="display: none;" onchange="importJSON(event)"/>
+          <button class="action-btn" onclick="document.getElementById('json-file-input').click()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points=\"17 8 12 3 7 8\"/><line x1=\"12\" y1=\"3\" x2=\"12\" y2=\"15\"/></svg>
+            Importer un fichier
+          </button>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script src="designer.js"></script>
+</body>
+</html>

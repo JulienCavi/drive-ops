@@ -1,0 +1,176 @@
+/* ==================== ARCHITECT THEME (AMBER) ==================== */
+:root {
+  --h-accent: #fbbf24;        /* Ambre */
+  --h-accent-dim: rgba(251, 191, 36, 0.15);
+  --h-grid-line: rgba(255, 255, 255, 0.05);
+  --h-glass: rgba(15, 15, 20, 0.85); /* Plus opaque pour l'éditeur */
+}
+
+body { overflow: hidden; }
+
+.tactical-view {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: var(--bg-void);
+  /* Papier millimétré technique */
+  background-image: 
+    linear-gradient(var(--h-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--h-grid-line) 1px, transparent 1px);
+  background-size: 20px 20px; /* Plus petit que Heatmap pour précision */
+}
+
+/* ==================== HEADER ==================== */
+.tactical-header {
+  position: absolute; top: 0; left: 0; right: 0; height: 64px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 2rem; z-index: 50; pointer-events: none;
+}
+.header-left, .header-right { pointer-events: auto; }
+.header-left { display: flex; align-items: center; gap: 2rem; }
+
+.back-btn {
+  display: flex; align-items: center; gap: 0.5rem;
+  color: var(--txt-secondary); text-decoration: none;
+  font-family: var(--font-mono); font-size: 0.8rem;
+}
+.back-btn:hover { color: var(--txt-primary); }
+
+.module-title h1 { font-size: 1.1rem; font-weight: 400; color: var(--txt-primary); }
+.module-code { font-family: var(--font-mono); font-size: 0.65rem; color: var(--h-accent); display: block; margin-bottom: 2px; }
+
+.live-status {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--h-accent); background: var(--h-accent-dim);
+  padding: 4px 10px; border-radius: 100px;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+.status-dot { width: 6px; height: 6px; background: var(--h-accent); border-radius: 50%; box-shadow: 0 0 8px var(--h-accent); }
+
+/* ==================== PANELS ==================== */
+.glass-panel {
+  background: var(--h-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  display: flex; flex-direction: column; gap: 1.5rem; padding: 1.5rem;
+  z-index: 40;
+}
+
+/* Positionnement Absolu des Panneaux */
+.control-panel.left-panel {
+  position: absolute; top: 80px; left: 2rem; bottom: 2rem;
+  width: 280px;
+}
+
+.control-panel.right-panel {
+  position: absolute; top: 80px; right: 2rem; bottom: 2rem;
+  width: 320px;
+}
+
+.panel-section { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.panel-label {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--txt-mute); letter-spacing: 0.05em; margin-bottom: 0.25rem; display: block;
+}
+
+/* INPUTS & DIMS */
+.dims-row { display: flex; gap: 0.5rem; }
+.input-wrapper { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.input-wrapper label { font-size: 0.6rem; color: var(--txt-secondary); }
+
+.tactical-input {
+  width: 100%; background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--txt-primary); padding: 0.5rem;
+  border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;
+  outline: none; transition: border-color 0.2s;
+}
+.tactical-input:focus { border-color: var(--h-accent); }
+
+/* BUTTONS */
+.actions-row, .actions-stack { display: flex; gap: 0.5rem; }
+.actions-stack { flex-direction: column; }
+
+.action-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--txt-secondary); padding: 0.5rem;
+  border-radius: 6px; cursor: pointer; font-size: 0.75rem; font-family: var(--font-sans);
+  transition: all 0.2s;
+}
+.action-btn:hover { background: rgba(255,255,255,0.1); color: var(--txt-primary); }
+
+.action-btn.primary { background: var(--h-accent); color: #000; border-color: var(--h-accent); font-weight: 600; }
+.action-btn.primary:hover { opacity: 0.9; }
+
+.action-btn.danger:hover { border-color: #f87171; color: #f87171; }
+.action-btn.highlight { border-color: var(--h-accent); color: var(--h-accent); }
+.action-btn.warning { color: #fb923c; border-color: #fb923c; }
+
+.separator { height: 1px; background: rgba(255,255,255,0.1); margin: 0.5rem 0; }
+
+/* RAYON STATUS */
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.status-badge {
+  font-size: 0.6rem; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+  background: rgba(255,255,255,0.1); color: var(--txt-mute);
+}
+.status-badge.active { background: var(--h-accent); color: #000; }
+
+.rayon-controls { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; padding-top: 0.75rem; border-top: 1px dashed rgba(255,255,255,0.1); }
+.current-target { font-size: 0.8rem; color: var(--txt-secondary); text-align: center; }
+.current-target strong { color: var(--h-accent); font-size: 1.1rem; display: block; margin-top: 2px; font-family: var(--font-mono); }
+
+.hidden { display: none; }
+
+/* EDITOR */
+.code-editor {
+  width: 100%; height: 300px; resize: vertical;
+  background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--txt-secondary); font-family: var(--font-mono); font-size: 0.75rem;
+  padding: 0.75rem; border-radius: 6px; outline: none;
+}
+.code-editor:focus { border-color: var(--h-accent); color: var(--txt-primary); }
+
+/* MAP VIEWPORT */
+.map-viewport {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  overflow: auto;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1;
+}
+
+.map-stage { padding: 100px; }
+
+.designer-grid {
+  border-spacing: 2px; border-collapse: separate;
+}
+
+.designer-grid td {
+  width: 40px; height: 40px; /* Cases assez grandes pour cliquer */
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 4px;
+  text-align: center; vertical-align: middle;
+  font-family: var(--font-mono); font-size: 0.7rem; color: var(--txt-secondary);
+  cursor: crosshair;
+  transition: all 0.1s;
+}
+
+.designer-grid td:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--txt-secondary);
+}
+
+.designer-grid td.filled {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: var(--h-accent);
+  color: var(--h-accent);
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.1);
+}
