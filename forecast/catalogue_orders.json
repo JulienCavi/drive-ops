@@ -91,6 +91,9 @@
     { "date": "2025-11-20", "file": "data/orders_2025-11-20.csv", "label": "Jeudi 20/11/2025" },
     { "date": "2025-11-21", "file": "data/orders_2025-11-21.csv", "label": "Vendredi 21/11/2025" },
     { "date": "2025-11-22", "file": "data/orders_2025-11-22.csv", "label": "Samedi 22/11/2025" },
-    { "date": "2025-11-23", "file": "data/orders_2025-11-23.csv", "label": "Dimanche 23/11/2025" }
+    { "date": "2025-11-23", "file": "data/orders_2025-11-23.csv", "label": "Dimanche 23/11/2025" },
+    { "date": "2025-11-24", "file": "data/orders_2025-11-24.csv", "label": "Lundi 24/11/2025" },
+    { "date": "2025-11-25", "file": "data/orders_2025-11-25.csv", "label": "Mardi 25/11/2025" },
+    { "date": "2025-11-26", "file": "data/orders_2025-11-26.csv", "label": "Mercredi 26/11/2025" }
   ]
 }
