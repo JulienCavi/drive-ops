@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forecast – Prévisions Commandes</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="css/forecast.css" />
+</head>
+<body>
+  
+  <div class="tactical-view">
+    
+    <!-- Header -->
+    <header class="tactical-header">
+      <div class="header-left">
+        <a href="../" class="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          <span class="back-label">HUB</span>
+        </a>
+        <div class="module-title">
+          <span class="module-code">03 // PRÉDICTIONS</span>
+          <h1>Commandes & Charge</h1>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="data-period-badge" id="last-update">
+          Chargement...
+        </div>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="control-panel glass-panel">
+      <!-- Horizon -->
+      <div class="panel-section">
+        <label class="panel-label">HORIZON DE PRÉVISION</label>
+        <div class="select-wrapper">
+          <select id="horizon-select" class="tactical-select">
+            <option value="1">Demain (J+1)</option>
+            <option value="7" selected>Semaine prochaine (7j)</option>
+          </select>
+          <svg class="select-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Effet calendaire -->
+      <div class="panel-section">
+        <label class="panel-label">EFFET CALENDAIRE</label>
+        <div class="toggle-row">
+          <label class="toggle-switch">
+            <input type="checkbox" id="calendar-toggle" />
+            <span class="toggle-slider"></span>
+          </label>
+          <div class="toggle-text">
+            <div class="toggle-title">Appliquer Richesse / Croisière / Économie</div>
+            <div class="toggle-sub">
+              Ajuste les prévisions affichées selon le biais observé (simulation visuelle)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Backtest -->
+      <div class="panel-section">
+        <label class="panel-label">BACKTEST</label>
+        <div class="toggle-row">
+          <label class="toggle-switch">
+            <input type="checkbox" id="backtest-toggle" />
+            <span class="toggle-slider"></span>
+          </label>
+          <div class="toggle-text">
+            <div class="toggle-title">Voir l'historique vs le prévu</div>
+            <div class="toggle-sub">
+              Affiche ce que le modèle aurait prévu sur les derniers jours
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Infos modèle -->
+      <div class="panel-section">
+        <label class="panel-label">MODÈLE STATISTIQUE</label>
+        <div class="info-block">
+          <span class="info-label">Type :</span>
+          <span class="info-val">EWMA Hebdo</span>
+        </div>
+        <div class="info-block">
+          <span class="info-label">Historique :</span>
+          <span class="info-val" id="history-count">- jours</span>
+        </div>
+      </div>
+
+      <!-- Footer de Sidebar avec bouton Info -->
+      <div class="sidebar-footer">
+        <button id="info-btn" class="info-btn-sidebar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4M12 8h.01"/>
+          </svg>
+          Comprendre le modèle
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Viewport -->
+    <main class="chart-viewport">
+      
+      <!-- Dynamic Content Area -->
+      <div class="viewport-content">
+        
+        <div id="trend-view" class="chart-container glass-panel" style="display:none;">
+          <div class="chart-header-area">
+            <h2 class="chart-title">Projection Journalière (7 jours)</h2>
+            <div class="chart-legend">
+              <div class="legend-item"><span class="line-dashed"></span><span>Prévision</span></div>
+              <div class="legend-item"><span class="area-zone"></span><span>Incertitude (±1σ)</span></div>
+            </div>
+          </div>
+          <div id="forecast-chart" class="chart-stage-graph"></div>
+        </div>
+
+        <div id="slot-detail-view" class="chart-container glass-panel" style="display:none;">
+          <div class="chart-header-area">
+            <h2 id="slot-detail-title" class="chart-title">Détail de la Charge (J+1)</h2>
+          </div>
+          <div id="slot-detail-chart" class="chart-stage-slots"></div>
+          <div id="slot-detail-xaxis" class="slot-xaxis"></div>
+        </div>
+
+                <div id="backtest-view" class="chart-container glass-panel" style="display:none;">
+          <div class="chart-header-area">
+            <h2 class="chart-title">Rejeu de l'historique (Backtest)</h2>
+            <div class="chart-legend">
+              <div class="legend-item"><span class="line-solid"></span><span>Réel</span></div>
+              <div class="legend-item"><span class="line-dashed"></span><span>Prévu (one-step-ahead)</span></div>
+            </div>
+          </div>
+
+          <div id="backtest-chart" class="chart-stage-graph"></div>
+
+          <div class="backtest-table-wrapper">
+            <table class="backtest-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Réel</th>
+                  <th>Prévu</th>
+                  <th>Écart</th>
+                  <th>Erreur %</th>
+                </tr>
+              </thead>
+              <tbody id="backtest-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Stats Footer -->
+      <div class="stats-deck" id="stats-deck"></div>
+
+    </main>
+
+    <div id="loader" class="loader-overlay">
+      <div class="loader-spinner"></div>
+      <span>CALCUL DES MODÈLES...</span>
+    </div>
+
+  </div>
+
+  <!-- Methodology Modal -->
+  <div id="info-modal" class="modal-overlay">
+    <div class="modal-content glass-panel">
+      <button id="modal-close" class="modal-close">×</button>
+      
+      <h2 class="modal-title">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 16v-4M12 8h.01"/>
+        </svg>
+        Fonctionnement du modèle prédictif
+      </h2>
+
+      <!-- (le contenu de la modale reste inchangé) -->
+
+      <div class="modal-section">
+        <h3>L'essentiel</h3>
+        <p>
+          Ce module s'appuie sur l'historique des commandes (3 derniers mois actuellement, aussi loin que remontent les slots 😔) pour anticiper la charge de travail à venir.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Méthodologie</h3>
+        <p>
+          Pas d'appel à une simple moyenne : le système utilise une approche pondérée qui donne plus d'importance aux semaines récentes tout en respectant la structure de l'activité :
+        </p>
+        <ul>
+          <li><strong>Profil Hebdomadaire :</strong> Le modèle distingue chaque jour de la semaine. Il sait qu'un samedi n'a pas la même dynamique qu'un mardi.</li>
+          <li><strong>Réactivité :</strong> Si l'activité augmente depuis deux semaines, le modèle s'ajuste progressivement pour suivre la tendance.</li>
+          <li><strong>Découpage Horaire :</strong> Pour la journée du lendemain, il calcule la répartition probable heure par heure en se basant sur les habitudes de créneaux.</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Comprendre la 'Fourchette'</h3>
+        <p>
+          La prévision ne pouvant être exacte à l'unité près, j'affiche donc un intervalle (ex: 150 commandes [135 - 165]).
+        </p>
+        <p>
+          Cela signifie que le scénario 'central' est de 150, mais qu'il est raisonnable de se préparer à gérer jusqu'à 165 commandes. Plus cet intervalle est large, plus l'activité est volatile & incertaine ce jour-là.
+        </p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Limites</h3>
+        <p>
+          Le système est purement statistique. Il ne 'sait' pas qu'il y a un jour férié, une opé exceptionnelle, un férié ou des vacances, sauf si ces événements ont déjà eu lieu régulièrement par le passé.
+        </p>
+      </div>
+
+      <div class="modal-section" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; margin-top: 1.5rem;">
+        <h3>Prochaines évolutions</h3>
+        <p>
+          En cours de dev sur les 'Jours Spéciaux' pour affiner encore la précision :
+        </p>
+        <ul>
+          <li><strong>Gestion des Fériés :</strong> Tag manuel pour ne pas fausser les moyennes.</li>
+          <li><strong>Tags d'Événements :</strong> Possibilité de flag des jours (vacances scolaires, incidents techniques) pour que le modèle apprenne de ces contextes spécifiques.</li>
+          <li><strong>Saisonnalité Mensuelle :</strong> Prise en compte de l'effet 'début/fin de mois' sur le volume global.</li>
+        </ul>
+      </div>
+
+      <div class="modal-footer">
+        <span class="modal-meta">Algorithme : EWMA (α=0.3 semblant le mieux réagir) | Source : slots ecom</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/math-engine.js"></script>
+  <script src="js/forecast.js"></script>
+</body>
+</html>

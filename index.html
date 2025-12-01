@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outils Drive – Hub Central</title>
+  
+  <!-- FONT: INTER + JETBRAINS MONO -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/global.css" />
+</head>
+<body>
+  
+  <div class="app-view">
+    
+    <!-- HEADER -->
+    <header class="header-minimal">
+      <div class="brand-group">
+        <span class="brand-sup">Drive</span>
+        <h1 class="brand-main">Outils de Pilotage</h1>
+      </div>
+      <div class="header-status">
+        <span class="status-light"></span>
+        <span>v1.4.0</span>
+      </div>
+    </header>
+
+    <!-- MODULES -->
+    <main class="modules-grid">
+      
+      <!-- MODULE 1: HEATMAPS (Cyan - Observation) -->
+      <a href="heatmaps/" class="module-card theme-cyan">
+        <div class="card-header">
+          <div class="module-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/>
+            </svg>
+          </div>
+          <span class="module-code">01</span>
+        </div>
+        
+        <div class="card-content">
+          <h2 class="module-title">Heatmaps Picking</h2>
+          <p class="module-desc">
+            Vue aérienne par zone, type de picking & période. Idéal pour le slotting et repérer les points de congestion.
+          </p>
+        </div>
+
+        <div class="card-meta">
+          <div class="meta-block">
+            <span class="meta-label">Données</span>
+            <span class="meta-value">01.11.25 au 05.11.25</span>
+          </div>
+          <div class="meta-block">
+            <span class="meta-label">Version</span>
+            <span class="meta-value">1.3</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- MODULE 2: DELIVERIES (Indigo - Flux) -->
+      <a href="deliveries/" class="module-card theme-indigo">
+        <div class="card-header">
+          <div class="module-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="20" x2="12" y2="10"/>
+              <line x1="18" y1="20" x2="18" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="16"/>
+            </svg>
+          </div>
+          <span class="module-code">02</span>
+        </div>
+        
+        <div class="card-content">
+          <h2 class="module-title">Analytics Livraisons</h2>
+          <p class="module-desc">
+            Analyse des flux entrants par tranche de 30 minutes. Comparaison de journées et profils de charge moyens.
+          </p>
+        </div>
+
+        <div class="card-meta">
+          <div class="meta-block">
+            <span class="meta-label">Données</span>
+            <span class="meta-value">01.11.25 au 16.11.25</span>
+          </div>
+          <div class="meta-block">
+            <span class="meta-label">Version</span>
+            <span class="meta-value">1.3</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- MODULE 3: FORECAST (Vert - Prévisions) -->
+      <a href="forecast/" class="module-card theme-green">
+        <div class="card-header">
+          <div class="module-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+          </div>
+          <span class="module-code">03</span>
+        </div>
+        
+        <div class="card-content">
+          <h2 class="module-title">Prévisionnel</h2>
+          <p class="module-desc">
+            Prévision de la charge & des commandes sur J+1 & J+7.
+          </p>
+        </div>
+
+        <div class="card-meta">
+          <div class="meta-block">
+            <span class="meta-label">Données</span>
+            <span class="meta-value">24.08.25 au 27.11.25</span>
+          </div>
+          <div class="meta-block">
+            <span class="meta-label">Version</span>
+            <span class="meta-value">1.0</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- MODULE 4: PLAN DESIGNER (Ambre - Construction) -->
+      <a href="designer/" class="module-card theme-amber">
+        <div class="card-header">
+          <div class="module-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M9 21V9"/>
+            </svg>
+          </div>
+          <span class="module-code">04</span>
+        </div>
+        
+        <div class="card-content">
+          <h2 class="module-title">Plan Designer</h2>
+          <p class="module-desc">
+            Éditeur interactif pour la conception des layouts de zone. Mode rayon guidé pour placement rapide.
+          </p>
+        </div>
+
+        <div class="card-meta">
+          <div class="meta-block">
+            <span class="meta-label">Version</span>
+            <span class="meta-value">1.1</span>
+          </div>
+        </div>
+      </a>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-minimal">
+      <span>© 2025 Outils Drive</span>
+      <span>Documentation & Support</span>
+    </footer>
+
+  </div>
+</body>
+</html>

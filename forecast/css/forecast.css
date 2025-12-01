@@ -1,0 +1,672 @@
+/* ==================== FORECAST THEME (EMERALD) ==================== */
+:root {
+  --f-accent: #10b981;              /* Vert Emeraude (confiance) */
+  --f-accent-dim: rgba(16,185,129,0.15);
+  --f-grid-line: rgba(255,255,255,0.03);
+  --f-glass: rgba(15,15,20,0.7);
+  --f-bar-fill: #34d399;
+}
+
+body { overflow: hidden; }
+
+/* ==================== LAYOUT GLOBAL ==================== */
+.tactical-view {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: var(--bg-void);
+  background-image:
+    linear-gradient(var(--f-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--f-grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ==================== HEADER ==================== */
+.tactical-header {
+  position: absolute; top: 0; left: 0; right: 0; height: 64px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 2rem; z-index: 50; pointer-events: none;
+}
+.header-left, .header-right { pointer-events: auto; }
+.header-left { display: flex; align-items: center; gap: 2rem; }
+
+.back-btn {
+  display: flex; align-items: center; gap: 0.5rem;
+  color: var(--txt-secondary); text-decoration: none;
+  font-family: var(--font-mono); font-size: 0.8rem; transition: color 0.2s;
+}
+.back-btn:hover { color: var(--txt-primary); }
+
+.module-title h1 {
+  font-size: 1.1rem; font-weight: 400; color: var(--txt-primary);
+  letter-spacing: -0.02em;
+}
+.module-code {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--f-accent); letter-spacing: 0.05em;
+  display: block; margin-bottom: 2px; font-weight: 500;
+}
+
+/* Badge info (période / état modèle) */
+.data-period-badge {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--txt-secondary);
+  background: rgba(255,255,255,0.04);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ==================== PANNEAU GAUCHE ==================== */
+.glass-panel {
+  background: var(--f-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.control-panel {
+  position: absolute; top: 80px; left: 2rem; width: 260px;
+  padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+  z-index: 40;
+}
+
+.panel-section { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.panel-label {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
+  color: var(--txt-secondary); letter-spacing: 0.08em;
+  margin-bottom: 0.5rem; display: block;
+}
+
+/* Selects */
+.select-wrapper { position: relative; }
+.tactical-select {
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--txt-primary);
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  outline: none;
+  appearance: none;
+  transition: border-color 0.2s;
+}
+.tactical-select:focus {
+  border-color: rgba(255,255,255,0.2);
+}
+.select-icon {
+  position: absolute; right: 0.8rem; top: 50%;
+  transform: translateY(-50%);
+  color: var(--txt-secondary); pointer-events: none;
+}
+
+/* Toggle calendrier */
+.toggle-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 10px;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.toggle-row.is-on {
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+/* On garde éventuellement un tout petit changement de texte, ou pas */
+.toggle-row.is-on .toggle-title {
+  color: var(--txt-primary);
+}
+
+.toggle-row.is-on .toggle-sub {
+  color: var(--txt-secondary);
+}
+
+.toggle-switch {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(148,163,184,0.4); /* slate-400-ish */
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  top: 3px;
+  border-radius: 50%;
+  background: #e5e7eb; /* slate-200 */
+  transition: all 0.2s ease;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: var(--f-accent);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(18px);
+  background: #ecfdf5; /* emerald-50 */
+}
+
+.toggle-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toggle-title {
+  font-size: 0.8rem;
+  color: var(--txt-primary);
+}
+
+.toggle-sub {
+  font-size: 0.7rem;
+  color: var(--txt-secondary);
+}
+
+/* Info blocks dans la sidebar */
+.info-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+}
+.info-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--txt-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.info-val {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--txt-primary);
+}
+
+/* Slider (placeholder pour la simu) */
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.slider-wrapper label {
+  font-size: 0.8rem;
+  color: var(--txt-secondary);
+}
+.slider-wrapper input[type="range"] {
+  width: 100%;
+}
+.slider-wrapper.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ==================== VIEWPORT PRINCIPAL ==================== */
+.chart-viewport {
+  position: absolute;
+  top: 80px;
+  left: 300px;
+  right: 2rem;
+  bottom: 1rem;          /* AVANT : 2rem → on gagne un peu de hauteur utile */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;             /* AVANT : 1.5rem → moins d’espace perdu entre graph & cards */
+}
+
+/* Bloc principal (graph) */
+.chart-container {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+}
+
+/* Classe utilisée quand on affiche une vue (prévisions / slots / backtest) */
+.chart-container.fade-in {
+  animation: fadeInUp 0.18s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Header du graphe */
+.chart-header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.chart-title {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--txt-primary);
+  letter-spacing: -0.01em;
+}
+.chart-legend {
+  display: flex;
+  gap: 1.5rem;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--txt-secondary);
+}
+
+/* Items de légende spécifiques Forecast */
+.line-solid {
+  width: 20px;
+  height: 2px;
+  background: var(--txt-secondary);
+  display: inline-block;
+}
+.line-dashed {
+  width: 20px;
+  height: 2px;
+  display: inline-block;
+  background: repeating-linear-gradient(
+    to right,
+    var(--f-accent) 0,
+    var(--f-accent) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+.area-zone {
+  width: 20px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 2px;
+  background: var(--f-accent-dim);
+}
+
+/* Zone de graph (sera remplie en SVG/Canvas) */
+.chart-stage-graph {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.5rem;
+}
+
+/* ==================== STATS DECK ==================== */
+.stats-deck {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  height: 110px;
+  flex-shrink: 0;
+  height: 110px;
+  margin-top: 0;      /* AVANT : 1.5rem → on enlève le double décalage vers le bas */
+}
+
+.stat-card {
+  background: var(--f-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-title {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--txt-secondary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  color: var(--f-accent);
+  font-weight: 400;
+}
+
+.stat-sub {
+  font-size: 0.75rem;
+  color: var(--txt-mute);
+}
+
+/* Variante pour afficher un pourcentage de confiance, etc. */
+.stat-confidence {
+  color: var(--f-accent);
+  font-weight: 700;
+}
+
+/* ==================== LOADER ==================== */
+.loader-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-void);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 100;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--f-accent);
+}
+.loader-overlay.hidden { display: none; }
+
+.loader-spinner {
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--f-accent-dim);
+  border-top-color: var(--f-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==================== SLOT DETAIL CHART ==================== */
+.chart-stage-slots {
+  flex: 1;
+  width: 100%;
+  position: relative;
+}
+
+.slot-xaxis {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.slot-label {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--txt-secondary);
+}
+
+.bar-group-slots {
+  transition: opacity 0.2s;
+}
+.bar-group-slots:hover {
+  opacity: 0.7;
+}
+
+.forecast-bar {
+  fill: var(--f-accent); 
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.forecast-bar:hover {
+  opacity: 1; /* S'allume au survol */
+}
+
+.error-whisker {
+  stroke: rgba(255,255,255,0.2);
+  stroke-width: 1px;
+}
+
+.bar-value-label {
+  text-anchor: middle;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  fill: var(--txt-primary);
+  font-weight: bold;
+}
+
+/* -- AJOUTS POUR STABILITÉ UI -- */
+
+.chart-viewport {
+  /* On s'assure que le viewport prend toute la hauteur dispo */
+  display: flex;
+  flex-direction: column;
+  /* On NE force PAS le footer en bas, pour éviter qu'il soit coupé
+     sur les écrans plus petits. Le gap gère l'espacement. */
+}
+
+.viewport-content {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;                /* évite que le contenu pousse le deck en dehors */
+}
+
+.stats-deck {
+  flex-shrink: 0;
+  height: 140px;
+  margin-top: 0;  /* on laisse seulement le gap de .chart-viewport gérer l'espace */
+}
+
+
+.stat-sub {
+  /* Meilleure lisibilité */
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6); /* Plus clair que mute */
+  margin-top: 4px;
+  line-height: 1.0;
+}
+
+/* ==================== MODAL INFO & BOUTON ==================== */
+
+/* 1. Le bouton dans la sidebar (Footer) */
+.sidebar-footer {
+  margin-top: auto; /* Pousse le bouton tout en bas */
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.info-btn-sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: #94a3b8;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.info-btn-sidebar:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 2. La Modale (Overlay + Fenêtre) */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: #18181b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  width: 600px;
+  max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. Contenu de la Modale */
+.modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: #fff; }
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  color: #fff;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.modal-title svg { color: #10b981; /* Emerald */ }
+
+.modal-section { margin-bottom: 2rem; }
+
+.modal-section h3 {
+  font-size: 1rem;
+  color: #f1f5f9;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.modal-section p, .modal-section ul {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
+.modal-section ul {
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.modal-section li { margin-bottom: 0.5rem; }
+
+.modal-section strong { color: #cbd5e1; font-weight: 500; }
+
+.modal-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #475569;
+  text-align: center;
+}
+
+/* ==================== BACKTEST VIEW ==================== */
+
+.backtest-table-wrapper {
+  margin-top: 1rem;
+  max-height: 150px;
+  overflow-y: auto;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 0.75rem;
+}
+
+.backtest-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--txt-secondary);
+}
+
+.backtest-table th,
+.backtest-table td {
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.backtest-table th:first-child,
+.backtest-table td:first-child {
+  text-align: left;
+}
+
+.backtest-table thead th {
+  position: sticky;
+  top: 0;
+  background: rgba(15,15,20,0.95);
+  z-index: 1;
+}
+
+/* Coloration des lignes selon le niveau d'erreur */
+.bt-row-ok {
+  color: var(--txt-secondary);
+}
+
+.bt-row-warn {
+  color: #f97316; /* orange */
+}
+
+.bt-row-bad {
+  color: #f87171; /* rouge */
+  font-weight: 600;
+}

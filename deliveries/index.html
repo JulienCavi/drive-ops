@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deliveries – Analyse Flux</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="css/deliveries.css" />
+</head>
+<body>
+  
+  <div class="tactical-view">
+    
+    <!-- HEADER -->
+    <header class="tactical-header">
+      <div class="header-left">
+        <a href="../" class="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          <span class="back-label">HUB</span>
+        </a>
+        <div class="module-title">
+          <span class="module-code">02 // FLUX</span>
+          <h1>Analyse Livraisons</h1>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Badge simple et élégant -->
+        <div class="data-period-badge">
+          Période dispo : 01.11.2025 → 16.11.2025
+        </div>
+      </div>
+    </header>
+
+    <!-- SIDEBAR GAUCHE -->
+    <aside class="control-panel glass-panel">
+      
+      <div class="panel-section">
+        <label class="panel-label">MODE D'ANALYSE</label>
+        <div class="select-wrapper">
+          <select id="mode-select" class="tactical-select">
+            <option value="single">Date Unique</option>
+            <option value="compare">Comparaison (A vs B)</option>
+            <option value="weekday">Profil Semaine (Moyenne)</option>
+          </select>
+          <svg class="select-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+
+      <!-- GROUPE DATE A -->
+      <div id="group-date-a" class="panel-section">
+        <label id="label-date-a" class="panel-label">DATE CIBLE</label>
+        <div class="select-wrapper">
+          <select id="date-a-select" class="tactical-select"></select>
+          <svg class="select-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <label class="checkbox-container hidden" id="ref-wrapper">
+          <input type="checkbox" id="show-weekday-ref">
+          <span class="checkmark"></span>
+          <span class="checkbox-label">Comparer vs Moyenne jour</span>
+        </label>
+      </div>
+
+      <!-- GROUPE DATE B (Comparaison) -->
+      <div id="group-date-b" class="panel-section hidden">
+        <label class="panel-label">DATE B (RÉFÉRENCE)</label>
+        <div class="select-wrapper">
+          <select id="date-b-select" class="tactical-select"></select>
+          <svg class="select-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+
+      <!-- GROUPE WEEKDAY -->
+      <div id="group-weekday" class="panel-section hidden">
+        <label class="panel-label">JOUR TYPE</label>
+        <div class="select-wrapper">
+          <select id="weekday-select" class="tactical-select">
+            <option value="1">Lundi</option>
+            <option value="2">Mardi</option>
+            <option value="3">Mercredi</option>
+            <option value="4">Jeudi</option>
+            <option value="5">Vendredi</option>
+            <option value="6">Samedi</option>
+          </select>
+          <svg class="select-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <label class="panel-label">MÉTRIQUE</label>
+        <div class="select-wrapper">
+          <select id="metric-select" class="tactical-select">
+            <option value="total">Volume Total</option>
+            <option value="drive">Drive Seul</option>
+            <option value="collab">Collaboratif</option>
+          </select>
+          <svg class="select-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- VIEWPORT GRAPHIQUE -->
+    <main class="chart-viewport">
+      
+      <!-- CHART CONTAINER -->
+      <div class="chart-container glass-panel">
+        <div class="chart-header-area">
+          <h2 class="chart-title">Distribution Temporelle</h2>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <span class="dot dot-primary"></span>
+              <span id="legend-a">Cible</span>
+            </div>
+            <div class="legend-item">
+              <span class="dot dot-secondary"></span>
+              <span id="legend-b">Référence</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="chart" class="chart-stage"></div>
+        <div id="x-axis" class="chart-x-axis"></div>
+      </div>
+
+      <!-- STATS DECK -->
+      <div class="stats-deck" id="stats-content">
+        <!-- Généré par JS -->
+      </div>
+
+    </main>
+
+    <div id="loader" class="loader-overlay">
+      <div class="loader-spinner"></div>
+      <span>CHARGEMENT DES FLUX...</span>
+    </div>
+
+  </div>
+
+  <script src="js/deliveries.js"></script>
+</body>
+</html>

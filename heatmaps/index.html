@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heatmaps – Visualisation Tactique</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="css/heatmaps.css" />
+</head>
+<body>
+  
+  <div class="tactical-view">
+    
+    <header class="tactical-header">
+      <div class="header-left">
+        <a href="../" class="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          <span class="back-label">HUB</span>
+        </a>
+        <div class="module-title">
+          <span class="module-code">01 // OBSERVATION</span>
+          <h1>Heatmaps Picking</h1>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="data-period-badge">
+          Période dispo : 01.11.2025 → 05.11.2025
+        </div>
+      </div>
+    </header>
+
+    <aside class="control-panel glass-panel">
+      
+      <div class="panel-section">
+        <label class="panel-label">ZONE</label>
+        <div class="select-wrapper">
+          <select id="zone-select" class="tactical-select"></select>
+          <svg class="select-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <label class="panel-label">MODE</label>
+        <div id="type-filters" class="toggle-group"></div>
+      </div>
+
+      <div class="panel-section">
+        <label class="panel-label">SÉLECTION TEMPORELLE</label>
+        <div class="date-controls-stack">
+          <div class="date-input-group">
+            <label>Du</label>
+            <input type="date" id="date-from" class="tactical-input" />
+          </div>
+          <div class="date-input-group">
+            <label>Au</label>
+            <input type="date" id="date-to" class="tactical-input" />
+          </div>
+          <button id="btn-full-range" type="button" class="action-btn">
+            Voir toute la période
+          </button>
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <div class="stat-mini">
+          <span class="stat-label">PICKS</span>
+          <span id="total-points" class="stat-val">0</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-label">INTENSITÉ MAX</span>
+          <span id="max-intensity" class="stat-val">0</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="map-viewport" id="plan-viewport">
+      <div class="map-stage" id="plan-wrapper">
+        <table id="plan-table" class="tactical-grid"></table>
+      </div>
+      
+      <!-- UX HINT (NOUVEAU) -->
+      <div class="ux-hint glass-panel">
+        <div class="hint-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M19 9l3 3-3 3M9 19l3 3 3-3M2 12h20M12 2v20"/></svg>
+          <span>Déplacer : Clic + Glisser</span>
+        </div>
+        <div class="hint-separator"></div>
+        <div class="hint-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <span>Zoom : Molette</span>
+        </div>
+      </div>
+
+      <div class="bottom-controls">
+        <div class="zoom-controls glass-panel">
+          <button id="zoom-out" class="zoom-btn">-</button>
+          <span id="zoom-val" class="zoom-display">100%</span>
+          <button id="zoom-in" class="zoom-btn">+</button>
+        </div>
+        <div class="legend-bar glass-panel">
+          <span class="legend-title">DENSITÉ PICKING</span>
+          <div class="gradient-scale"></div>
+          <div class="legend-labels">
+            <span>Faible</span>
+            <span>Forte</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="loader" class="loader-overlay">
+      <div class="loader-spinner"></div>
+      <span>INITIALISATION DU SYSTÈME...</span>
+    </div>
+
+  </div>
+
+  <div id="tooltip" class="tactical-tooltip"></div>
+  <script src="js/heatmaps.js"></script>
+</body>
+</html>

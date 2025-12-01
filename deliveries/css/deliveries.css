@@ -1,0 +1,262 @@
+/* ==================== TACTICAL THEME (INDIGO REFINED) ==================== */
+:root {
+  --h-accent: #818cf8;        /* Indigo élégant */
+  --h-accent-dim: rgba(129, 140, 248, 0.12);
+  --h-grid-line: rgba(255, 255, 255, 0.03);
+  --h-glass: rgba(15, 15, 20, 0.7);
+  
+  /* Chart Specifics */
+  --bar-primary: #818cf8;
+  --bar-secondary: rgba(255, 255, 255, 0.1);
+  --bar-bg-hover: rgba(255, 255, 255, 0.02);
+}
+
+body { overflow: hidden; }
+
+.tactical-view {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: var(--bg-void);
+  background-image: 
+    linear-gradient(var(--h-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--h-grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ==================== HEADER ==================== */
+.tactical-header {
+  position: absolute; top: 0; left: 0; right: 0; height: 64px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 2rem; z-index: 50; pointer-events: none;
+}
+.header-left, .header-right { pointer-events: auto; }
+.header-left { display: flex; align-items: center; gap: 2rem; }
+
+.back-btn {
+  display: flex; align-items: center; gap: 0.5rem;
+  color: var(--txt-secondary); text-decoration: none;
+  font-family: var(--font-mono); font-size: 0.8rem; transition: color 0.2s;
+}
+.back-btn:hover { color: var(--txt-primary); }
+
+.module-title h1 { font-size: 1.1rem; font-weight: 400; color: var(--txt-primary); letter-spacing: -0.02em; }
+.module-code {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--h-accent); letter-spacing: 0.05em; display: block; margin-bottom: 2px; font-weight: 500;
+}
+
+/* BADGE SOBRE */
+.data-period-badge {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--txt-secondary); background: rgba(255,255,255,0.04);
+  padding: 6px 12px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ==================== PANNEAU GAUCHE ==================== */
+.glass-panel {
+  background: var(--h-glass); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.control-panel {
+  position: absolute; top: 80px; left: 2rem; width: 260px;
+  padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; z-index: 40;
+}
+
+.panel-label {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
+  color: var(--txt-secondary); letter-spacing: 0.08em; margin-bottom: 0.5rem; display: block;
+}
+
+.panel-section { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.select-wrapper { position: relative; }
+.tactical-select {
+  width: 100%; background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--txt-primary); padding: 0.6rem;
+  border-radius: 6px; font-family: var(--font-sans); font-size: 0.85rem;
+  outline: none; appearance: none; transition: border-color 0.2s;
+}
+.tactical-select:focus { border-color: rgba(255,255,255,0.2); }
+.select-icon { position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); color: var(--txt-secondary); pointer-events: none; }
+
+.checkbox-container {
+  display: flex; align-items: center; gap: 0.75rem; cursor: pointer; margin-top: 0.5rem;
+}
+.checkbox-container input { display: none; }
+.checkmark {
+  width: 16px; height: 16px; border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px; position: relative; transition: all 0.2s;
+}
+.checkbox-container input:checked ~ .checkmark {
+  background: var(--h-accent); border-color: var(--h-accent);
+}
+.checkbox-label { font-size: 0.75rem; color: var(--txt-secondary); font-family: var(--font-sans); }
+
+.hidden { display: none; }
+
+/* ==================== CHART VIEWPORT ==================== */
+.chart-viewport {
+  position: absolute; top: 80px; left: 300px; right: 2rem; bottom: 2rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+
+.chart-container {
+  flex: 1; padding: 2rem;
+  display: flex; flex-direction: column; position: relative;
+}
+
+.chart-header-area {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;
+}
+.chart-title {
+  font-size: 1rem; font-weight: 400; color: var(--txt-primary); letter-spacing: -0.01em;
+}
+.chart-legend { display: flex; gap: 1.5rem; }
+.legend-item {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.7rem; color: var(--txt-secondary);
+}
+.dot { width: 8px; height: 8px; border-radius: 2px; }
+.dot-primary { background: var(--bar-primary); }
+.dot-secondary { background: var(--bar-secondary); border: 1px solid rgba(255,255,255,0.1); }
+
+/* CHART STAGE */
+.chart-stage {
+  flex: 1; display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 4px; padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-top: 30px; /* Espace pour valeurs */
+}
+
+.bar-group {
+  flex: 1; height: 100%;
+  display: flex; align-items: flex-end; justify-content: center;
+  gap: 2px; position: relative;
+}
+.bar-group:hover::after {
+  content: ''; position: absolute; inset: 0; background: var(--bar-bg-hover); pointer-events: none;
+}
+
+.bar-wrapper {
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  height: 100%; flex: 1; min-width: 4px;
+}
+
+.bar {
+  width: 100%; background: var(--bar-primary);
+  border-radius: 2px 2px 0 0;
+  transition: height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.bar.secondary { background: var(--bar-secondary); }
+
+.bar-value {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--txt-secondary);
+  margin-bottom: 4px;
+  opacity: 0.6; /* TOUJOURS VISIBLE, mais discret */
+  transition: all 0.2s ease-out; /* Transition douce pour couleur et opacité */
+}
+.bar-group:hover .bar-value {
+  opacity: 1; /* Pleine opacité au survol */
+  color: var(--h-accent); /* Couleur Indigo au survol */
+  transform: translateY(-2px); /* Léger mouvement vers le haut */
+}
+
+.bar-value.secondary {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.bar-group:hover .bar-value.secondary {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.bar-value.visible { opacity: 1; } /* Or if explicitly visible */
+
+/* AXE X */
+.chart-x-axis {
+  display: flex; justify-content: space-between;
+  padding-top: 0.5rem; gap: 4px;
+}
+.x-label {
+  flex: 1; text-align: center;
+  font-family: var(--font-mono); font-size: 0.6rem; color: var(--txt-secondary);
+  transform: rotate(-90deg); transform-origin: center top;
+  margin-top: 6px; white-space: nowrap; opacity: 0.7;
+}
+
+/* ==================== STATS DECK ==================== */
+.stats-deck {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+  height: 110px;
+}
+
+.stat-card {
+  /* Style unifié Glass */
+  background: var(--h-glass); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+  padding: 1.25rem;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+
+.stat-title {
+  font-family: var(--font-mono); font-size: 0.65rem; 
+  color: var(--txt-secondary); letter-spacing: 0.05em; font-weight: 600;
+}
+.stat-value {
+  font-family: var(--font-mono); font-size: 1.6rem; 
+  color: var(--h-accent); /* Indigo sur la valeur */
+  font-weight: 400;
+}
+.stat-sub { font-size: 0.75rem; color: var(--txt-mute); }
+
+/* LOADER */
+.loader-overlay {
+  position: absolute; inset: 0; background: var(--bg-void);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1rem; z-index: 100; font-family: var(--font-mono); font-size: 0.8rem; color: var(--h-accent);
+}
+.loader-overlay.hidden { display: none; }
+.loader-spinner {
+  width: 30px; height: 30px; border: 2px solid var(--h-accent-dim);
+  border-top-color: var(--h-accent); border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* STATS COMPARISON ADD-ON */
+.stat-compare-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.stat-col {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.stat-value.val-a {
+  color: var(--bar-primary); /* Indigo pour A */
+  font-size: 1.4rem;
+}
+
+.stat-value.val-b {
+  color: rgba(255, 255, 255, 0.6); /* Gris clair pour B (Secondaire) */
+  font-size: 1.4rem;
+}
